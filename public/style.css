@@ -22,14 +22,14 @@ body {
     margin-bottom: 10px;
     padding: 5px 10px;
     border-radius: 5px;
-    overflow: hidden; /* Ensure text doesn't overflow the container */
+    overflow: hidden;
 }
 
 .word {
     display: inline-block;
-    white-space: nowrap; /* Prevent words from breaking into new lines */
-    opacity: 0; /* Hide words initially */
-    animation: streamAnimation 0.5s forwards; /* Apply animation to each word */
+    white-space: nowrap; 
+    opacity: 0;
+    animation: streamAnimation 0.5s forwards; 
 }
 
 #input {

@@ -16,9 +16,7 @@ function sendMessage(message) {
     if (!message.trim()) return;
 
     appendMessage('user', message);
-
-    // Simulate computer response
-    const computerMessage = generateComputerResponse();
+    const computerMessage = generateComputerResponse(message);
     setTimeout(() => {
         streamText('computer', computerMessage);
     }, 500);
@@ -34,24 +32,23 @@ function appendMessage(sender, message) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function generateComputerResponse() {
-    const responses = [
-        "Hello! How can I help you?",
-        "What's on your mind?",
-        "Nice to meet you!",
-        "I'm a chatbot. Ask me anything!",
-        "How can I assist you today?",
-        "Sorry, I didn't understand that.",
-        "Good Morning",
-        "Nothing much",
-        "About to go to sleep",
-        "Can you guess?",
-        "I don't know actually"
-    ];
-    const randomIndex = Math.floor(Math.random() * responses.length);
-    // Split the selected response into individual words
-    return responses[randomIndex].split(/\s+/);
+function generateComputerResponse(userMessage) {
+    const lowercaseMessage = userMessage.toLowerCase();
+
+    if (lowercaseMessage.includes("hello") || lowercaseMessage.includes("hi")) {
+        return ["Hello!", "How", "can", "I", "help", "you"];
+    } else if (lowercaseMessage.includes("how are you")) {
+        return ["I'm", "just", "a", "chatbot,", "so", "I'm", "always", "ready", "to", "assist", "you!"];
+    } else if (lowercaseMessage.includes("what is your name?")) {
+        return ["My", "name", "is", "Chatbot.", "Nice", "to", "meet", "you!"];
+    } else if (lowercaseMessage.includes("what is my name")) {
+        return ["Sorry,", "I", "don't", "know", "your", "name."];
+    }
+
+    return ["Sorry,", "I", "didn't", "understand", "that.", "Please", "ask", "me", "something", "else."];
 }
+
+
 
 // Function to stream text in the chat container
 
@@ -65,12 +62,12 @@ function streamText(sender, words) {
             const wordElement = document.createElement('span');
             wordElement.textContent = word;
             messageElement.appendChild(wordElement);
-            
+
             // Add space between words, except for the last word
             if (index < words.length - 1) {
                 const spaceElement = document.createTextNode(' ');
                 messageElement.appendChild(spaceElement);
             }
-        }, index * 1000); // Adjust the delay (in milliseconds) between each word
+        }, index * 100); // Adjust the delay (in milliseconds) between each word
     });
 }
